@@ -10,10 +10,10 @@ bidding = True
 
 while bidding:
   name = input("What is your name?: ")
-  bid = input("What's your bid?: ")
+  bid = int(input("What's your bid?: $"))
   os.system('clear')
   bids[name] = bid
-  should_continue = input("Are there more bidders (yes/no)?: ")
+  should_continue = input("Are there more bidders (yes/no)?:\n")
   if should_continue == "no":
     bidding = False
 
