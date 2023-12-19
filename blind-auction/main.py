@@ -1,11 +1,19 @@
 import os
 from art import logo
 
-bids = {}
-
+def get_highest_bidder(bids):
+  max_bid = 0
+  winner = ""
+  for id in bids:
+    bid_amount = bids[id]
+    if bid_amount > max_bid:
+      max_bid = bid_amount
+      winner = id
+  return winner 
 
 print(logo)
 
+bids = {}
 bidding = True
 
 while bidding:
@@ -17,7 +25,6 @@ while bidding:
   if should_continue == "no":
     bidding = False
 
-max_bid = max(bids.values())
-for key, value in bids.items():
-  if value == max_bid:
-    print(f"The highest bid of {value} came from {key}!")
+print(f"The highest bid of came from {get_highest_bidder(bids)}!")
+
+
