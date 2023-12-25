@@ -114,7 +114,7 @@ def make_coffee(drink):
     ingredients = get_ingredients(drink)
     for ingredient, amount in ingredients.items():
         resources[ingredient] -= amount
-    print(f"Here is your {drink}. Enjoy!")
+    print(f"Here is your {drink} ☕️. Enjoy!")
 
 
 def refund(value):
@@ -141,11 +141,13 @@ def main_loop():
                     coin_value = prompt_for_coins()
                     while not check_transaction_success(coin_value, user_choice):
                         print("Not enough money, please insert more coins.")
-                        if input("Abort y/n?") == "y":
+                        if input("Continue y/n?") == "n":
                             refund(coin_value)
                             break
                         coin_value += prompt_for_coins()
-                    make_coffee(user_choice)
+                    # check again, because after possible break we get here
+                    if check_transaction_success(coin_value, user_choice):
+                        make_coffee(user_choice)
                 else:
                     continue
         except KeyError as e:
