@@ -9,7 +9,7 @@ resources = {
 }
 
 
-def print_menu() :
+def print_menu():
     for drink in menu:
         print("- ", drink)
 
@@ -35,7 +35,8 @@ def check_resources(drink):
     ingredients = get_ingredients(drink)
     for ingredient, amount in ingredients.items():
         if not check_enough_ingredient(ingredient, amount):
-            print(f"Sorry there is not enough {ingredient}, maybe try something else?")
+            print(
+                f"Sorry there is not enough {ingredient}, maybe try something else?")
             return False
     return True
 
@@ -121,6 +122,7 @@ def refund(value):
 
 
 def main_loop():
+    print(logo)
     machine_running = True
     while machine_running:
         try:
