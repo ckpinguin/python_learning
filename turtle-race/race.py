@@ -1,17 +1,14 @@
 from turtle import Turtle, Screen
 import random
 
-screen = Screen()
-screen.setup(width=500, height=400)
-
-turtles = []
-
 colors = ['blue', 'green', 'chocolate', 'black', 'red', 'pink']
-
-bottom = -200
-start_line = -220
-finishing_line = 220
+race_distance = 700
+screen_height = len(colors) * 58
+bottom = -(screen_height/2)
+start_line = -(race_distance/2)+25
+finishing_line = (race_distance/2)-30
 stepAmount = 10
+turtles = []
 
 
 class RunningTurtle(Turtle):
@@ -49,6 +46,9 @@ def draw_line(xPos, yPos, length):
         t.forward(stepSize)
     t.hideturtle()
 
+
+screen = Screen()
+screen.setup(width=race_distance, height=screen_height)
 
 # draw_line(finishing_line, 300, 300)
 yOffset = bottom
@@ -91,6 +91,5 @@ for turtle in turtles:
         else:
             turtle.write("YOU LOSE!", align="right",
                          font=("Arial", 18, "bold"))
-
 
 screen.exitonclick()
