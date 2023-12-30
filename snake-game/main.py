@@ -13,6 +13,7 @@ screen.bgcolor("black")
 screen.tracer(0)
 
 
+# This feels like it's snake's responsibility...
 def is_at_border(snake):
     x_pos, y_pos = snake.get_head_position()
     if x_pos >= screen_width / 2 or x_pos <= -(screen_width / 2):
@@ -26,12 +27,27 @@ def is_at_border(snake):
 
 snake = Snake()
 
+screen.listen()
+screen.onkey(snake.move_up, "Up")
+screen.onkey(snake.move_up, "v")
+
+screen.onkey(snake.move_left, "Left")
+screen.onkey(snake.move_left, "u")
+
+screen.onkey(snake.move_right, "Right")
+screen.onkey(snake.move_right, "a")
+
+screen.onkey(snake.move_down, "Down")
+screen.onkey(snake.move_down, "i")
+
+# screen.onkey(clear, "Escape")
+
 game_is_on = True
 while game_is_on:
-    screen.update()
+    snake._move_forward()
     time.sleep(0.1)
-    snake.move_forward()
-    snake.move_head_forward()
+    screen.update()
+
     if is_at_border(snake):
         snake.turn_around()
     snake.print_all_segments_pos()
