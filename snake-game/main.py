@@ -1,6 +1,7 @@
 from turtle import Screen
 import time
 from snake import Snake
+from food import Food
 
 screen_width = 700
 screen_height = 700
@@ -26,6 +27,7 @@ def is_at_border(snake):
 
 
 snake = Snake()
+food = Food()
 
 screen.listen()
 screen.onkey(snake.move_up, "Up")
@@ -44,13 +46,16 @@ screen.onkey(snake.move_down, "i")
 
 game_is_on = True
 while game_is_on:
-    snake._move_forward()
+    snake.move()
     time.sleep(0.1)
     screen.update()
 
     if is_at_border(snake):
         snake.turn_around()
-    snake.print_all_segments_pos()
+    # snake.print_all_segments_pos()
+    if snake._head.distance(food) < 15:
+        print("nom nom nom")
+        food.new_random_pos()
 
 
 screen.exitonclick()

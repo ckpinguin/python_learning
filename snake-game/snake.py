@@ -44,7 +44,7 @@ class Snake(Turtle):
             segment = self.segments[seg_num]
             segment.goto(new_x, new_y)
 
-    def _move_forward(self):
+    def move(self):
         self._segments_follow_head()
         self._head.forward(self.MOVE_DISTANCE)
 
