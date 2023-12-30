@@ -5,6 +5,16 @@ class Snake(Turtle):
     STARTING_POSITIONS = [(-20, 0), (-40, 0)]
     MOVE_DISTANCE = 20
 
+    DIRECTIONS = {
+        "RIGHT": 0,
+        "UP": 90,
+        "LEFT": 180,
+        "DOWN": 270
+    }
+    #   UP = 90
+    #   LEFT = 180
+    #   DOWN = 270
+
     def __init__(self):
         super().__init__()
         self.segments = []
@@ -38,20 +48,31 @@ class Snake(Turtle):
         self._segments_follow_head()
         self._head.forward(self.MOVE_DISTANCE)
 
+    def _is_turn_allowed(self, new_direction):
+        current_direction = self._head.heading()
+        if (abs(new_direction - current_direction)) == 180:
+            return False
+        return True
+
+    # Normally not allowed:
     def turn_around(self):
         self._head.right(180)
 
     def move_up(self):
-        self._head.setheading(90)
+        if self._is_turn_allowed(self.DIRECTIONS["UP"]):
+            self._head.setheading(self.DIRECTIONS["UP"])
 
     def move_down(self):
-        self._head.setheading(270)
+        if self._is_turn_allowed(self.DIRECTIONS["DOWN"]):
+            self._head.setheading(self.DIRECTIONS["DOWN"])
 
     def move_right(self):
-        self._head.setheading(0)
+        if self._is_turn_allowed(self.DIRECTIONS["RIGHT"]):
+            self._head.setheading(self.DIRECTIONS["RIGHT"])
 
     def move_left(self):
-        self._head.setheading(180)
+        if self._is_turn_allowed(self.DIRECTIONS["LEFT"]):
+            self._head.setheading(self.DIRECTIONS["LEFT"])
 
     def get_head_position(self):
         print(self.segments[0].pos())
