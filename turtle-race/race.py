@@ -6,7 +6,7 @@ screen.setup(width=500, height=400)
 
 turtles = []
 
-colors = ['blue', 'green', 'chocolate', 'black', 'red']
+colors = ['blue', 'green', 'chocolate', 'black', 'red', 'pink']
 
 bottom = -200
 start_line = -220
