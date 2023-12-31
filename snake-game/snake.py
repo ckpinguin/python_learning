@@ -19,7 +19,7 @@ class Snake(Turtle):
         super().__init__()
         self.segments = []
         self._setup_snake()
-        self._head = self.segments[0]
+        self.head = self.segments[0]
 
     def _setup_head(self):
         head = Turtle("square")
@@ -31,11 +31,7 @@ class Snake(Turtle):
     def _setup_snake(self):
         self._setup_head()
         for position in Snake.STARTING_POSITIONS:
-            new_segment = Turtle("square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.segments.append(new_segment)
+            self._add_segment(position)
 
     def _segments_follow_head(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -46,36 +42,54 @@ class Snake(Turtle):
 
     def move(self):
         self._segments_follow_head()
-        self._head.forward(self.MOVE_DISTANCE)
+        self.head.forward(self.MOVE_DISTANCE)
 
     def _is_turn_allowed(self, new_direction):
-        current_direction = self._head.heading()
+        current_direction = self.head.heading()
         if (abs(new_direction - current_direction)) == 180:
             return False
         return True
 
     # Normally not allowed:
-    def turn_around(self):
-        self._head.right(180)
+    def _turn_around(self):
+        self.head.right(180)
+
+    def extend(self):
+        position = self.segments[-1].position()
+        self._add_segment(position)
+
+    def _add_segment(self, position):
+        new_segment = Turtle("square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.goto(position)
+        self.segments.append(new_segment)
+
+    def detect_self_collision(self):
+        for segment in self.segments[1:]:
+            if segment == self.head:
+                pass
+            if self.head.distance(segment) < 10:
+                return True
+        return False
 
     def move_up(self):
         if self._is_turn_allowed(self.DIRECTIONS["UP"]):
-            self._head.setheading(self.DIRECTIONS["UP"])
+            self.head.setheading(self.DIRECTIONS["UP"])
 
     def move_down(self):
         if self._is_turn_allowed(self.DIRECTIONS["DOWN"]):
-            self._head.setheading(self.DIRECTIONS["DOWN"])
+            self.head.setheading(self.DIRECTIONS["DOWN"])
 
     def move_right(self):
         if self._is_turn_allowed(self.DIRECTIONS["RIGHT"]):
-            self._head.setheading(self.DIRECTIONS["RIGHT"])
+            self.head.setheading(self.DIRECTIONS["RIGHT"])
 
     def move_left(self):
         if self._is_turn_allowed(self.DIRECTIONS["LEFT"]):
-            self._head.setheading(self.DIRECTIONS["LEFT"])
+            self.head.setheading(self.DIRECTIONS["LEFT"])
 
-    def get_head_position(self):
-        print(self.segments[0].pos())
+    def head_position(self):
         return self.segments[0].pos()
 
     def print_all_segments_pos(self):

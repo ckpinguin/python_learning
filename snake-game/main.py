@@ -2,6 +2,7 @@ from turtle import Screen
 import time
 from snake import Snake
 from food import Food
+from scoreboard import ScoreBoard
 
 screen_width = 700
 screen_height = 700
@@ -14,13 +15,13 @@ screen.bgcolor("black")
 screen.tracer(0)
 
 
-# This feels like it's snake's responsibility...
+# This feels like it belongs to a class...
 def is_at_border(snake):
-    x_pos, y_pos = snake.get_head_position()
-    if x_pos >= screen_width / 2 or x_pos <= -(screen_width / 2):
+    x_pos, y_pos = snake.head_position()
+    if x_pos >= screen_width / 2 or x_pos <= -(screen_width / 2) + 20:
         print("Boing x")
         return True
-    if y_pos >= screen_height / 2 or y_pos <= -(screen_height / 2):
+    if y_pos >= screen_height / 2 or y_pos <= -(screen_height / 2) + 20:
         print("Boing y")
         return True
     return False
@@ -28,6 +29,7 @@ def is_at_border(snake):
 
 snake = Snake()
 food = Food()
+score_board = ScoreBoard(screen_height)
 
 screen.listen()
 screen.onkey(snake.move_up, "Up")
@@ -51,11 +53,18 @@ while game_is_on:
     screen.update()
 
     if is_at_border(snake):
-        snake.turn_around()
+        # snake.turn_around()
+        score_board.game_over()
+        game_is_on = False
     # snake.print_all_segments_pos()
-    if snake._head.distance(food) < 15:
-        print("nom nom nom")
+    if snake.detect_self_collision():
+        score_board.game_over()
+        game_is_on = False
+    if snake.head.distance(food) < 15:
+        score_board.increment_score(1)
+        score_board.show_score_on_screen()
         food.new_random_pos()
+        snake.extend()
 
 
 screen.exitonclick()
