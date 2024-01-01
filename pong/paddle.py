@@ -3,7 +3,7 @@ from turtle import Turtle
 
 class Paddle(Turtle):
 
-    STEP_SIZE = 20
+    STEP_SIZE = 10
 
     def __init__(self, width=20, height=100, x_pos=350, y_pos=0):
         super().__init__()
@@ -24,10 +24,10 @@ class Paddle(Turtle):
         self.penup()
         self.clear()
         new_y = self.ycor() + self.STEP_SIZE
-        self.goto(self.xcor(), new_y)
+        self.sety(new_y)
 
     def move_down(self):
         self.penup()
         self.clear()
         new_y = self.ycor() - self.STEP_SIZE
-        self.goto(self.xcor(), new_y)
+        self.sety(new_y)

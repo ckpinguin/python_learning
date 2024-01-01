@@ -12,12 +12,7 @@ screen.tracer(0)
 right_paddle = Paddle()
 left_paddle = Paddle(x_pos=-350)
 
-""" screen.listen()
-screen.onkeypress(right_paddle.move_up, "Up")
-screen.onkeypress(right_paddle.move_down, "Down")
-screen.onkeypress(left_paddle.move_up, "v")
-screen.onkeypress(left_paddle.move_down, "i")
- """
+keys_pressed = set()
 
 
 def tick():
@@ -26,13 +21,11 @@ def tick():
     screen.update()
 
 
-keys_pressed = set()
-
 actions = dict(
-    up_right=lambda: right_paddle.sety(right_paddle.ycor()+Paddle.STEP_SIZE),
-    down_right=lambda: right_paddle.sety(right_paddle.ycor()-Paddle.STEP_SIZE),
-    up_left=lambda: left_paddle.sety(left_paddle.ycor()+Paddle.STEP_SIZE),
-    down_left=lambda: left_paddle.sety(left_paddle.ycor()-Paddle.STEP_SIZE)
+    up_right=lambda: right_paddle.move_up(),
+    down_right=lambda: right_paddle.move_down(),
+    up_left=lambda: left_paddle.move_up(),
+    down_left=lambda: left_paddle.move_down()
 )
 
 screen.onkeypress(lambda: keys_pressed.add("up_right"), key="Up")
@@ -47,6 +40,5 @@ screen.listen()
 
 game_is_running = True
 while game_is_running:
-    screen.update()
-
+    tick()
 screen.exitonclick()
