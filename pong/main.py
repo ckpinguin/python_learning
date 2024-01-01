@@ -8,7 +8,7 @@ import random
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 BALL_SIZE = 20
-PADDLE_TORQUE = 30
+PADDLE_TORQUE = 20
 DEFAULT_GAME_SPEED = 0.02
 GAME_ACCELERATION = 1.05
 
@@ -60,8 +60,8 @@ def detect_y_wall_collision():
 
 
 def detect_paddle_collision(paddle):
-    return ball.distance(paddle) < 50 \
-        and abs(ball.xcor()) > x_wall - 30
+    return ball.distance(paddle) <= 50 \
+        and abs(ball.xcor()) > x_wall - 40
 
 
 def get_paddle_torque_offset(paddle):

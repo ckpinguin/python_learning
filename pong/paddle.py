@@ -5,8 +5,10 @@ class Paddle(Turtle):
 
     STEP_SIZE = 10
 
-    def __init__(self, width=20, height=100, x_pos=350, y_pos=0):
+    def __init__(self, width=20, height=100, x_pos=350, y_pos=0, min_y=-300, max_y=300):
         super().__init__()
+        self.min_y = min_y
+        self.max_y = max_y
         self.shape("square")
         self.color("white")
         self.shapesize(stretch_wid=1, stretch_len=5)
@@ -22,15 +24,17 @@ class Paddle(Turtle):
         self.position(x, y)
 
     def move_up(self):
-        self.penup()
-        self.clear()
-        new_y = self.ycor() + self.STEP_SIZE
-        self.sety(new_y)
-        self.last_move = "Up"
+        if self.ycor() <= self.max_y:
+            self.penup()
+            self.clear()
+            new_y = self.ycor() + self.STEP_SIZE
+            self.sety(new_y)
+            self.last_move = "Up"
 
     def move_down(self):
-        self.penup()
-        self.clear()
-        new_y = self.ycor() - self.STEP_SIZE
-        self.sety(new_y)
-        self.last_move = "Down"
+        if self.ycor() >= self.min_y:
+            self.penup()
+            self.clear()
+            new_y = self.ycor() - self.STEP_SIZE
+            self.sety(new_y)
+            self.last_move = "Down"
