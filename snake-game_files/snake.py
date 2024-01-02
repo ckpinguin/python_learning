@@ -2,7 +2,7 @@ from turtle import Turtle
 from typing import List
 
 
-class Snake(Turtle):
+class Snake():
     STARTING_POSITIONS = [(-20, 0), (-40, 0)]
     MOVE_DISTANCE = 20
 
@@ -19,7 +19,20 @@ class Snake(Turtle):
     def __init__(self):
         super().__init__()
         self.segments: List[Turtle] = []
+        self.head = None
         self._setup_snake()
+
+    def reset(self):
+        for segment in self.segments:
+            segment.clear()
+            del segment
+        self.segments.clear()
+        self._setup_snake()
+
+    def _setup_snake(self):
+        self._setup_head()
+        for position in Snake.STARTING_POSITIONS:
+            self._add_segment(position)
         self.head = self.segments[0]
 
     def _setup_head(self):
@@ -29,10 +42,9 @@ class Snake(Turtle):
         head.goto(0, 0)
         self.segments.append(head)
 
-    def _setup_snake(self):
-        self._setup_head()
-        for position in Snake.STARTING_POSITIONS:
-            self._add_segment(position)
+    def move(self):
+        self._segments_follow_head()
+        self.head.forward(self.MOVE_DISTANCE)
 
     def _segments_follow_head(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -40,16 +52,6 @@ class Snake(Turtle):
             new_y = self.segments[seg_num-1].ycor()
             segment = self.segments[seg_num]
             segment.goto(new_x, new_y)
-
-    def move(self):
-        self._segments_follow_head()
-        self.head.forward(self.MOVE_DISTANCE)
-
-    def _is_turn_allowed(self, new_direction):
-        current_direction = self.head.heading()
-        if (abs(new_direction - current_direction)) == 180:
-            return False
-        return True
 
     # Normally not allowed:
     def _turn_around(self):
@@ -89,6 +91,12 @@ class Snake(Turtle):
     def move_left(self):
         if self._is_turn_allowed(self.DIRECTIONS["LEFT"]):
             self.head.setheading(self.DIRECTIONS["LEFT"])
+
+    def _is_turn_allowed(self, new_direction):
+        current_direction = self.head.heading()
+        if (abs(new_direction - current_direction)) == 180:
+            return False
+        return True
 
     def head_position(self):
         return self.segments[0].pos()

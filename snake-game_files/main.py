@@ -17,6 +17,17 @@ screen.tracer(0)
 keys_pressed = set()
 
 
+def end_game():
+    global game_is_on
+    global food
+    screen.resetscreen()
+    score_board.reset()
+    score_board.show_score_on_screen()
+    snake.reset()
+    food = Food()
+    # game_is_on = False
+
+
 def tick():
     global game_is_on
     for action in keys_pressed:
@@ -27,13 +38,9 @@ def tick():
     screen.update()
 
     if is_at_border(snake):
-        # snake.turn_around()
-        score_board.reset()
-        game_is_on = False
-    # snake.print_all_segments_pos()
+        end_game()
     if snake.detect_self_collision():
-        score_board.reset()
-        game_is_on = False
+        end_game()
     if snake.head.distance(food) < 15:
         score_board.increase_score(1)
         score_board.show_score_on_screen()
@@ -52,10 +59,8 @@ actions = dict(
 def is_at_border(snake: Snake):
     x_pos, y_pos = snake.head_position()
     if x_pos >= screen_width / 2 or x_pos <= -(screen_width / 2) + 20:
-        print("Boing x")
         return True
     if y_pos >= screen_height / 2 or y_pos <= -(screen_height / 2) + 20:
-        print("Boing y")
         return True
     return False
 
