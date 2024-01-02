@@ -15,7 +15,7 @@ class CarManager():
         self.right_boundary = screen_width / 2
         self.starting_point = self.right_boundary
         self.cars: List[CarManager.Car] = []
-        self.random_chance = 10  # 1 in _10_
+        self.random_create_chance = 10  # 1 in _10_
 
     def move_all_cars(self):
         for car in self.cars:
@@ -34,7 +34,7 @@ class CarManager():
 
     def put_random_car(self):
         n = random.randint(0, 100)
-        if n % self.random_chance == 0:
+        if n % self.random_create_chance == 0:
             self.create_random_car()
 
     def create_random_car(self):
