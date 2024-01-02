@@ -1,4 +1,5 @@
 from turtle import Turtle
+from typing import List
 
 
 class Snake(Turtle):
@@ -17,7 +18,7 @@ class Snake(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.segments = []
+        self.segments: List[Turtle] = []
         self._setup_snake()
         self.head = self.segments[0]
 

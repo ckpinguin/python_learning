@@ -14,12 +14,11 @@ class ScoreBoard(Turtle):
         self.penup()
         self.hideturtle()
         self.goto(0, (screen_height / 2) - 30)
-        self.write(f"Score: {self.score}",
-                   align=self.ALIGNMENT, font=self.FONT)
+        self.show_score_on_screen()
 
     def show_score_on_screen(self):
         self.clear()
-        self.write(f"Score: {self.score}",
+        self.write(f"Score: {self.score}   High Score: {self.high_score}",
                    align=self.ALIGNMENT, font=self.FONT)
 
     def update_score(self, new_score):
