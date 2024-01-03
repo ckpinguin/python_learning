@@ -20,10 +20,8 @@ keys_pressed = set()
 def end_game():
     global game_is_on
     global food
-    score_board.save_hiscore()
     screen.resetscreen()
     score_board.reset()
-    score_board.show_score_on_screen()
     snake.reset()
     food = Food()
     # game_is_on = False

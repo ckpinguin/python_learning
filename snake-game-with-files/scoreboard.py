@@ -44,7 +44,9 @@ class ScoreBoard(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
+            self.save_hiscore()
         self.score = 0
+        self.show_score_on_screen()
 
     def game_over(self):
         self.goto(0, 0)
