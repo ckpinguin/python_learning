@@ -26,6 +26,11 @@ class ScoreBoard(Turtle):
 
     def increase_score(self, amount):
         self.score += amount
+        
+    def save_hiscore(self):
+        with open('hiscore.txt', 'w') as file:
+            file.write(self.high_score)
+            
 
     def reset(self):
         if self.score > self.high_score:
