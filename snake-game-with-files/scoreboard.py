@@ -9,7 +9,7 @@ class ScoreBoard(Turtle):
     def __init__(self, screen_height):
         super().__init__()
         self.score = 0
-        self.high_score = 0
+        self.high_score = self.load_hiscore()
         self.color("white")
         self.penup()
         self.hideturtle()
@@ -26,11 +26,20 @@ class ScoreBoard(Turtle):
 
     def increase_score(self, amount):
         self.score += amount
-        
+
     def save_hiscore(self):
         with open('hiscore.txt', 'w') as file:
-            file.write(self.high_score)
-            
+            file.write(str(self.high_score))
+
+    def load_hiscore(self):
+        try:
+            with open('hiscore.txt') as file:
+                hiscore = int(file.read())
+            return hiscore
+        except FileNotFoundError:
+            print("No hiscore file found...")
+
+        return 0
 
     def reset(self):
         if self.score > self.high_score:
