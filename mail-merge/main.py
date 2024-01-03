@@ -11,7 +11,6 @@
 def read_template(template):
     with open(template) as file:
         content = file.read()
-        print(content)
     return content
 
 
@@ -27,13 +26,11 @@ def write_letter(content, name):
 
 def main():
     template_content = read_template('./Input/Letters/starting_letter.txt')
-    print(template_content)
 
     with open("./Input/Names/invited_names.txt") as file:
         for line in file:
             name = line.strip()
             new_content = replace_content(template_content, name)
-            print(new_content)
             write_letter(new_content, name)
 
 
