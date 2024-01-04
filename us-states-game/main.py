@@ -1,20 +1,18 @@
-import pandas
+import turtle
 
-data = pandas.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+screen = turtle.Screen()
+screen.title("U.S. States game")
 
-grey_squirrels_count = len(data[data["Primary Fur Color"] == "Gray"])
-red_squirrels_count = len(data[data["Primary Fur Color"] == "Cinnamon"])
-black_squirrels_count = len(data[data["Primary Fur Color"] == "Gray"])
-print(grey_squirrels_count)
-print(red_squirrels_count)
-print(black_squirrels_count)
+image = "./blank_states_img.gif"
+screen.addshape(image)
+
+turtle.shape(image)
+answer_state = screen.textinput(
+    title="Guess the State", prompt="What's another state's name?")
+
+""" def get_mouse_click_coor(x, y):
+    print(x, y)
+turtle.onscreenclick(get_mouse_click_coor) """
 
 
-data_dict = {
-    "Fur Color": ["Gray", "Cinnamon", "Black"],
-    "Count": [grey_squirrels_count, red_squirrels_count, black_squirrels_count]
-}
-
-df = pandas.DataFrame(data_dict)
-df.to_csv("squirrel_color_count.csv")
-# print(fur_color.groupby("Primary Fur Color").count())
+turtle.mainloop()
