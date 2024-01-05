@@ -32,6 +32,6 @@ print(alphabet_dict)
 # TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 name = input('Enter a name: ').upper()
 
-for letter in name:
-    print(letter)
-    print(alphabet_dict[letter])
+output_list = [alphabet_dict[letter] for letter in name]
+
+print(output_list)
