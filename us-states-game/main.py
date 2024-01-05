@@ -31,10 +31,8 @@ while len(guessed_states) < df.state.size:
         title=f"{len(guessed_states)}/{df.state.size}", prompt="What's another state's name? (Type Exit to stop)").title()
 
     if answer_state == "Exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [
+            state for state in all_states if state not in guessed_states]
         df = pandas.DataFrame(missing_states)
         df.to_csv("states_to_learn.csv")
         break
