@@ -13,8 +13,8 @@ miles_entry.grid(row=1, column=2)
 miles_label = Label(text="Miles")
 miles_label.grid(row=1, column=3)
 
-label = Label(text="is equal to")
-label.grid(row=2, column=1)
+is_equal_label = Label(text="is equal to")
+is_equal_label.grid(row=2, column=1)
 
 km_result_label = Label(text=0)
 km_result_label.grid(row=2, column=2)
