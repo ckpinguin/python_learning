@@ -23,12 +23,12 @@ km_label = Label(text="Km")
 km_label.grid(row=2, column=3)
 
 
-def button_clicked():
+def calculate_km():
     km = int(miles_entry.get()) * 1.609344
     km_result_label.config(text=km)
 
 
-button_calc = Button(text="Calculate", command=button_clicked)
+button_calc = Button(text="Calculate", command=calculate_km)
 button_calc.grid(row=3, column=2)
 
 
