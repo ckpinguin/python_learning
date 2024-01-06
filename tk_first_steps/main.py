@@ -12,7 +12,7 @@ label.config(text="Even newer text")
 
 
 def button_clicked():
-    text = input.get()
+    text = entry.get()
     label.config(text=text)
 
 
