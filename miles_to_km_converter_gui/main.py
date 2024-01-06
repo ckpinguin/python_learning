@@ -24,7 +24,7 @@ km_label.grid(row=2, column=3)
 
 
 def calculate_km():
-    km = int(miles_entry.get()) * 1.609344
+    km = float(miles_entry.get()) * 1.609344
     km_result_label.config(text=km)
 
 
