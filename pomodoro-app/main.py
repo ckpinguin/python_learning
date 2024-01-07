@@ -7,10 +7,9 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
-REPS_UNTIL_LONG_BREAK = 4
-LONG_BREAK_MIN = 1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 CHECKMARK = "✔️"
 
 
@@ -27,20 +26,22 @@ def start_timer():
     timer_long_break = LONG_BREAK_MIN * 60
 
     start_button.config(state="disabled")
-    window.attributes('-topmost', 1)
+    window.attributes('-topmost', 0)
     if reps == 8:
         count_down(timer_long_break)
         status_label.config(text="Long Break", fg=RED)
-        window.attributes('-topmost', 0)
+        window.attributes('-topmost', 1)
     elif reps % 2 == 0:
         count_down(timer_short_break)
         status_label.config(text="Short Break", fg=PINK)
-        window.attributes('-topmost', 0)
+        window.attributes('-topmost', 1)
+        window.attributes('-fullscreen', True)
     else:
         count_down(timer_work)
         status_label.config(text="Work", fg=GREEN)
         status_label.config(text="Work", fg=GREEN)
         window.attributes('-topmost', 0)
+        window.attributes('-fullscreen', False)
 
 
 def reset_timer():
@@ -49,7 +50,10 @@ def reset_timer():
     status_label.config(text="")
     checkmarks_label.config(text="")
     canvas.itemconfig(timer_text, text="")
-    reps = 1
+    start_button.config(state="normal")
+    window.attributes('-topmost', 0)
+    window.attributes('-fullscreen', False)
+    reps = 0
 
 
 def count_down(count):
