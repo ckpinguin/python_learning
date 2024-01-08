@@ -31,6 +31,7 @@ def start_timer():
         count_down(timer_long_break)
         status_label.config(text="Long Break", fg=RED)
         window.attributes('-topmost', 1)
+        window.attributes('-fullscreen', True)
     elif reps % 2 == 0:
         count_down(timer_short_break)
         status_label.config(text="Short Break", fg=PINK)
