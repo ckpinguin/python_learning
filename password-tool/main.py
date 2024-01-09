@@ -73,10 +73,10 @@ def save_password():
                 write_json(new_data)
             else:
                 write_json(data)
-
-            website_entry.delete(0, END)
-            password_entry.delete(0, END)
-            info_msg("Password saved.")
+            finally:
+                website_entry.delete(0, END)
+                password_entry.delete(0, END)
+                info_msg("Password saved.")
 
     else:
         alert_msg("Not all fields\n are filled.")
@@ -85,6 +85,7 @@ def save_password():
 def write_json(data):
     with open(PASSWORD_FILE, "w") as file:
         json.dump(data, file, indent=4)
+
 # ------------------ UI SETUP --------------------- #
 
 
