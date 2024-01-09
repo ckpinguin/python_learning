@@ -2,8 +2,9 @@ from tkinter import (Tk, PhotoImage, messagebox,
                      Canvas, Label, Entry, Button, StringVar, END)
 import random
 import pyperclip
+import json
 
-PASSWORD_FILE = "passwords.txt"
+PASSWORD_FILE = "passwords.json"
 DEFAULT_EMAIL = "ck@pm.me"
 FONT_NAME = "Arial"
 
@@ -52,21 +53,40 @@ def save_password():
     website = website_entry.get()
     username = username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website:   {
+            "email": username,
+            "password": password,
+        }
+    }
 
     if website and username and password:
         is_ok = messagebox.askokcancel(
             title=website, message=f"These are the details entered:\nEmail: {username}\nPassword: {password} \n\nIs it OK to save?")
         if is_ok:
-            with open(PASSWORD_FILE, "a") as file:
-                file.write(f"{website} | {username} | {password}\n")
+            try:
+                with open(PASSWORD_FILE, "r") as file:
+                    data = json.load(file)
+                    # Not just appending, we need a valid json structure
+                    data.update(new_data)
+            except FileNotFoundError:
+                write_json(new_data)
+            else:
+                write_json(data)
+
             website_entry.delete(0, END)
             password_entry.delete(0, END)
             info_msg("Password saved.")
+
     else:
         alert_msg("Not all fields\n are filled.")
 
 
+def write_json(data):
+    with open(PASSWORD_FILE, "w") as file:
+        json.dump(data, file, indent=4)
 # ------------------ UI SETUP --------------------- #
+
 
 def reset_msg():
     message_label.config(text="")
