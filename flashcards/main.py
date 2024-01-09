@@ -1,12 +1,18 @@
 from tkinter import Tk, PhotoImage, Button, Label, Canvas
+import pandas
 
 BACKGROUND_COLOR = "#B1DDC6"
 FONT = "Arial"
+FILENAME = "data/french_words.csv"
 
+df = pandas.read_csv(FILENAME)
+words_dict = df.to_dict(orient="records")
+print(words_dict)
+
+##### UI ######
 window = Tk()
 window.title("Flashy")
 window.config(bg=BACKGROUND_COLOR, padx=50, pady=50)
-
 
 card_back_img = PhotoImage(file="images/card_back.png")
 card_front_img = PhotoImage(file="images/card_front.png")
@@ -22,12 +28,13 @@ canvas.grid(row=0, column=0, columnspan=2)
 
 wrong_img = PhotoImage(file="images/wrong.png")
 wrong_button = Button(
-    image=wrong_img, highlightthickness=0, bg=BACKGROUND_COLOR, highlightbackground=BACKGROUND_COLOR)
+    image=wrong_img, highlightthickness=0, bg=BACKGROUND_COLOR, border=0)
 wrong_button.grid(row=1, column=0)
 
 right_img = PhotoImage(file="images/right.png")
 right_button = Button(
-    image=right_img, highlightthickness=0, highlightbackground=BACKGROUND_COLOR,
+    image=right_img, highlightthickness=0,
+    border=0,
     bg=BACKGROUND_COLOR)
 right_button.grid(row=1, column=1)
 
